@@ -1,0 +1,120 @@
+{
+    "openapi": "3.1.0",
+    "info": {
+        "title": "Retrieve similar documents",
+        "description": "Retrieves k documents most similar to the query.",
+        "version": "v1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://a388-103-150-26-238.ngrok.io"
+        }
+    ],
+    "paths": {
+        "/api": {
+            "get": {
+                "tags": [
+                    "RetrieveDocuments"
+                ],
+                "summary": "Query Documents",
+                "operationId": "query_documents_api_get",
+                "parameters": [
+                    {
+                        "name": "query",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "description": "The question or query to be answered",
+                            "title": "Query"
+                        },
+                        "description": "The question or query to be answered"
+                    },
+                    {
+                        "name": "k",
+                        "in": "query",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "maximum": 10,
+                            "minimum": 1,
+                            "description": "The number of documents to retrieve",
+                            "title": "K"
+                        },
+                        "description": "The number of documents to retrieve"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    },
+                    "422": {
+                        "description": "Validation Error",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HTTPValidationError"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "HTTPValidationError": {
+                "properties": {
+                    "detail": {
+                        "items": {
+                            "$ref": "#/components/schemas/ValidationError"
+                        },
+                        "type": "array",
+                        "title": "Detail"
+                    }
+                },
+                "type": "object",
+                "title": "HTTPValidationError"
+            },
+            "ValidationError": {
+                "properties": {
+                    "loc": {
+                        "items": {
+                            "anyOf": [
+                                {
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "integer"
+                                }
+                            ]
+                        },
+                        "type": "array",
+                        "title": "Location"
+                    },
+                    "msg": {
+                        "type": "string",
+                        "title": "Message"
+                    },
+                    "type": {
+                        "type": "string",
+                        "title": "Error Type"
+                    }
+                },
+                "type": "object",
+                "required": [
+                    "loc",
+                    "msg",
+                    "type"
+                ],
+                "title": "ValidationError"
+            }
+        }
+    }
+}

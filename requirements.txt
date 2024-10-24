@@ -1,0 +1,8 @@
+openai
+langchain
+tiktoken
+faiss-cpu
+python-dotenv
+unstructured[all-docs]
+fastapi
+uvicorn
